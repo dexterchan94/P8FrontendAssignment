@@ -50,7 +50,9 @@ export default function MortgageCalculator() {
         termOfLoan: amortizationPeriod,
       })
         .then((monthlyPayment) => {
-          setMonthlyPayment(safeParseFloat(monthlyPayment));
+          if (monthlyPayment) {
+            setMonthlyPayment(safeParseFloat(monthlyPayment));
+          }
         })
         .catch((e) => {
           console.error(e);
