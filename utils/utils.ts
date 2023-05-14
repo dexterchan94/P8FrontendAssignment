@@ -16,6 +16,13 @@ export function safeParseFloat(str: string) {
   return parsed;
 }
 
+export function getCents(num: number): string {
+  const priceComponents = num.toFixed(2).toString().split(".");
+  const cents = priceComponents[1];
+
+  return cents ? cents : "00";
+}
+
 interface MonthlyPaymentInputs {
   principal: any;
   annualInterestRate: number;

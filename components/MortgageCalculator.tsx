@@ -5,7 +5,12 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import Slider from "@mui/material/Slider";
-import { fetchMonthlyPayment, safeParseFloat, safeParseInt } from "../utils";
+import {
+  fetchMonthlyPayment,
+  getCents,
+  safeParseFloat,
+  safeParseInt,
+} from "../utils";
 import s from "./MortgageCalculator.module.css";
 import { Skeleton } from "@mui/material";
 
@@ -77,12 +82,12 @@ export default function MortgageCalculator() {
             animation="wave"
             variant="rectangular"
             width={150}
-            height={60}
+            height={70}
           />{" "}
           <Skeleton
             animation="wave"
             variant="rectangular"
-            width={50}
+            width={40}
             height={30}
           />
         </div>
@@ -92,8 +97,8 @@ export default function MortgageCalculator() {
     return (
       <div className={s.cardPrice}>
         <span className={s.cardPriceSmall}>$</span>
-        <span className={s.cardPriceValue}>{monthlyPayment}</span>
-        <span className={s.cardPriceSmall}></span>
+        <span className={s.cardPriceValue}>{monthlyPayment.toFixed(0)}</span>
+        <span className={s.cardPriceSmall}>{getCents(monthlyPayment)}</span>
       </div>
     );
   }, [isError, isLoading, monthlyPayment]);

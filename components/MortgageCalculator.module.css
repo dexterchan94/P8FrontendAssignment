@@ -9,6 +9,8 @@
 .heading {
   color: var(--color-heading);
   margin-bottom: 0;
+  font-size: 1.8rem;
+  font-weight: 400;
 }
 
 .subtext {
@@ -68,6 +70,7 @@
 .cardPriceValue {
   color: var(--color-primary);
   font-size: 5rem;
+  line-height: 4.4rem;
 }
 
 .cardPriceSmall {
