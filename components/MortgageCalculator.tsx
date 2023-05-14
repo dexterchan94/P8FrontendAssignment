@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -65,10 +65,6 @@ export default function MortgageCalculator() {
   }, [amortizationPeriod, interestRate, purchasePrice]);
 
   const cardPriceMarkup = useMemo(() => {
-    if (isError) {
-      return "Error";
-    }
-
     if (isLoading || !monthlyPayment) {
       return (
         <div className={`${s.cardPrice} ${s.cardPriceSkeleton}`}>
@@ -103,7 +99,7 @@ export default function MortgageCalculator() {
         <span className={s.cardPriceSmall}>{getCents(monthlyPayment)}</span>
       </div>
     );
-  }, [isError, isLoading, monthlyPayment]);
+  }, [isLoading, monthlyPayment]);
 
   const BpIcon = styled("span")(() => ({
     borderRadius: "50%",
@@ -313,11 +309,17 @@ export default function MortgageCalculator() {
           </div>
           <div className={s.gridRight}>
             <div className={s.card}>
-              <div className={s.cardText}>
-                Your total monthly payment will be
-              </div>
-              {cardPriceMarkup}
-              <div className={s.cardText}>/month</div>
+              {isError ? (
+                "Oops! Something went wrong."
+              ) : (
+                <>
+                  <div className={s.cardText}>
+                    Your total monthly payment will be
+                  </div>
+                  {cardPriceMarkup}
+                  <div className={s.cardText}>/month</div>
+                </>
+              )}
             </div>
             <button className={s.applyButton}>Apply Today</button>
           </div>

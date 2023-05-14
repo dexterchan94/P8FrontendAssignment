@@ -1,3 +1,5 @@
+import { Data, MortgageParams } from "../pages/api/mortgageCalculation";
+
 export function safeParseInt(str: string) {
   const parsed = Number.parseInt(str, 10);
   if (Number.isNaN(parsed)) {
@@ -23,13 +25,7 @@ export function getCents(num: number): string {
   return cents ? cents : "00";
 }
 
-interface MonthlyPaymentInputs {
-  principal: any;
-  annualInterestRate: number;
-  termOfLoan: number;
-}
-
-export async function fetchMonthlyPayment(inputs: MonthlyPaymentInputs) {
+export async function fetchMonthlyPayment(inputs: MortgageParams) {
   const { principal, annualInterestRate, termOfLoan } = inputs;
 
   const url = `/api/mortgageCalculation?principal=${principal}&annualInterestRate=${annualInterestRate}&termOfLoan=${termOfLoan}`;
@@ -42,11 +38,10 @@ export async function fetchMonthlyPayment(inputs: MonthlyPaymentInputs) {
   };
 
   const res = await fetch(url, options);
-  const json = await res.json();
+  const json: Data = await res.json();
 
-  if (json.errors) {
-    const { message } = json.errors[0];
-    throw new Error(message);
+  if (!res.ok) {
+    throw new Error(`${json.error}`);
   }
 
   return json.monthlyPayment;
