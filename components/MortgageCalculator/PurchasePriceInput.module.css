@@ -1,0 +1,16 @@
+.sliderValue {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  font-size: 1.8rem;
+  margin: 0.4rem 0;
+}
+
+.sliderValue .sliderValueCurrency {
+  font-size: 1rem;
+  margin-right: 0.2rem;
+}
+
+.sliderValue .sliderValueNumber {
+  line-height: 2rem;
+}

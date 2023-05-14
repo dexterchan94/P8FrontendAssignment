@@ -1,9 +1,12 @@
-import type { NextPage } from 'next'
+import type { NextPage } from "next";
+import MortgageCalculator from "../components/MortgageCalculator/MortgageCalculator";
 
 const Home: NextPage = () => {
   return (
-    <div>Hello!</div>
-  )
-}
+    <>
+      <MortgageCalculator />
+    </>
+  );
+};
 
-export default Home
+export default Home;

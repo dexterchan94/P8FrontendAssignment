@@ -1,0 +1,65 @@
+.card {
+  border-radius: var(--border-radius);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 1rem;
+  align-items: center;
+  background-color: #FFF;
+  padding: 3rem 4rem;
+  font-weight: bold;
+  min-height: 100%;
+  box-shadow: 0px 5px 30px 5px rgba(0,0,0,0.15);
+}
+
+.card > * {
+  margin-bottom: 2rem;
+}
+
+.cardPrice {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.cardPriceSkeleton {
+  gap: 0.5rem;
+}
+
+.cardPriceValue {
+  color: var(--color-primary);
+  font-size: 5rem;
+  line-height: 4.6rem;
+  font-weight: 800;
+  margin-right: 0.3rem;
+}
+
+.cardPriceSmall {
+  color: var(--color-primary);
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.cardText {
+  color: var(--color-secondary);
+}
+
+.applyButton {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #FFF;
+  background-color: var(--color-button);
+  padding: 1rem 2rem;
+  border-radius: 100px;
+  border: none;
+  cursor: pointer;
+  font-size: 1.3rem;
+}
+
+.applyButton:hover {
+  background-color: #FFF;
+  color: var(--color-button);
+  border: 2px solid var(--color-button);
+}
