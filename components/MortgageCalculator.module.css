@@ -93,8 +93,9 @@
 .cardPriceValue {
   color: var(--color-primary);
   font-size: 5rem;
-  line-height: 4.4rem;
+  line-height: 4.6rem;
   font-weight: 800;
+  margin-right: 0.3rem;
 }
 
 .cardPriceSmall {
