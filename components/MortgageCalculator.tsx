@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -40,10 +40,10 @@ export default function MortgageCalculator() {
   }
 
   useEffect(() => {
-    const debounce = setTimeout(() => {
-      setIsError(false);
-      setIsLoading(true);
+    setIsError(false);
+    setIsLoading(true);
 
+    const debounce = setTimeout(() => {
       fetchMonthlyPayment({
         principal: purchasePrice,
         annualInterestRate: interestRate,
@@ -59,7 +59,7 @@ export default function MortgageCalculator() {
         .finally(() => {
           setIsLoading(false);
         });
-    }, 500);
+    }, 200);
 
     return () => clearTimeout(debounce);
   }, [amortizationPeriod, interestRate, purchasePrice]);
@@ -217,7 +217,9 @@ export default function MortgageCalculator() {
               >
                 Interest Rate
               </FormLabel>
-              <div className={`${s.sliderValue} ${s.interestRateSliderValue}`}>{interestRate}%</div>
+              <div className={`${s.sliderValue} ${s.interestRateSliderValue}`}>
+                {interestRate}%
+              </div>
               <Slider
                 aria-labelledby="interestRate"
                 defaultValue={interestRate}
