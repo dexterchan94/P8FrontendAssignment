@@ -13,3 +13,11 @@ function MyApp({ Component, pageProps }: AppProps) {
 }
 
 export default MyApp;
+
+/* 
+  Notes
+  - The API only handles integer values for interest rate but the mockup shows decimals
+  - Some font colours do not have enough contrast
+  - "Qualify or apply your mortgage in minutes" typo?
+*/
+// TODO - clear TS error, write tests
