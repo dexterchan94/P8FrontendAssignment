@@ -1,0 +1,11 @@
+.headerContainer {
+  box-shadow: 0px 10px 25px 10px #C8DBF8;
+  position: relative;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+}

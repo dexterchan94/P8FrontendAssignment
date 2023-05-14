@@ -14,3 +14,20 @@ a {
 * {
   box-sizing: border-box;
 }
+
+:root {
+  --background-color: #e5ecf9;
+  --color-heading: #475761;
+  --color-primary: #3d515b;
+  --color-secondary: #9faeb9;
+  --color-tertiary: #b9c2d1;
+  --color-button: #4b3272;
+  --color-range-input: #135ece;
+  --border-radius: 20px;
+}
+
+.page-width {
+  width: 85vw;
+  max-width: 85vw;
+  margin: 0 auto;
+}
