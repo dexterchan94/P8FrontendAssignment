@@ -9,13 +9,15 @@
 .heading {
   color: var(--color-heading);
   margin-bottom: 0;
-  font-size: 1.8rem;
+  font-size: 1.7rem;
   font-weight: 400;
 }
 
 .subtext {
   color: var(--color-tertiary);
   margin-bottom: 3rem;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
 }
 
 .grid {
@@ -31,12 +33,33 @@
   }
 
   .gridLeft {
-    padding-right: 4rem;
+    padding-right: 20%;
   }
 }
 
 .gridRight {
   position: relative;
+}
+
+.sliderValue {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  font-size: 1.8rem;
+  margin: 0.4rem 0;
+}
+
+.sliderValue .sliderValueCurrency {
+  font-size: 1rem;
+  margin-right: 0.2rem;
+}
+
+.sliderValue .sliderValueNumber {
+  line-height: 2rem;
+}
+
+.sliderValue.interestRateSliderValue {
+  margin-left: 1rem;
 }
 
 .card {
@@ -71,11 +94,13 @@
   color: var(--color-primary);
   font-size: 5rem;
   line-height: 4.4rem;
+  font-weight: 800;
 }
 
 .cardPriceSmall {
   color: var(--color-primary);
   font-size: 2rem;
+  font-weight: 800;
 }
 
 .cardText {
@@ -93,5 +118,11 @@
   border-radius: 100px;
   border: none;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 1.3rem;
+}
+
+.applyButton:hover {
+  background-color: #FFF;
+  color: var(--color-button);
+  border: 2px solid var(--color-button);
 }

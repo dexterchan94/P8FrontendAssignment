@@ -12,10 +12,10 @@ import {
   safeParseInt,
 } from "../utils";
 import s from "./MortgageCalculator.module.css";
-import { Skeleton } from "@mui/material";
+import { Skeleton, styled } from "@mui/material";
 
 export default function MortgageCalculator() {
-  const [purchasePrice, setPurchasePrice] = useState(50);
+  const [purchasePrice, setPurchasePrice] = useState(50000);
   const [interestRate, setInterestRate] = useState(1.5);
   const [amortizationPeriod, setAmortizationPeriod] = useState(25);
   const [monthlyPayment, setMonthlyPayment] = useState<number | null>(null);
@@ -45,7 +45,7 @@ export default function MortgageCalculator() {
       setIsLoading(true);
 
       fetchMonthlyPayment({
-        principal: purchasePrice * 1000,
+        principal: purchasePrice,
         annualInterestRate: interestRate,
         termOfLoan: amortizationPeriod,
       })
@@ -97,11 +97,39 @@ export default function MortgageCalculator() {
     return (
       <div className={s.cardPrice}>
         <span className={s.cardPriceSmall}>$</span>
-        <span className={s.cardPriceValue}>{monthlyPayment.toFixed(0)}</span>
+        <span className={s.cardPriceValue}>
+          {safeParseInt(monthlyPayment.toFixed(0)).toLocaleString("en-US")}
+        </span>
         <span className={s.cardPriceSmall}>{getCents(monthlyPayment)}</span>
       </div>
     );
   }, [isError, isLoading, monthlyPayment]);
+
+  const BpIcon = styled("span")(() => ({
+    borderRadius: "50%",
+    width: 20,
+    height: 20,
+    boxShadow:
+      "inset 0 0 0 1px rgba(16,22,26,.5), inset 0 -1px 0 rgba(16,22,26,.1)",
+    backgroundColor: "#FFF",
+    "input:hover ~ &": {
+      backgroundColor: "#f5f8fa",
+    },
+  }));
+
+  const BpCheckedIcon = styled(BpIcon)({
+    backgroundColor: "#FFF",
+    boxShadow:
+      "inset 0 0 0 1px var(--color-button), inset 0 -1px 0 rgba(16,22,26,.1)",
+    "&:before": {
+      display: "block",
+      width: 20,
+      height: 20,
+      backgroundImage:
+        "radial-gradient(var(--color-button),var(--color-button) 40%,transparent 45%)",
+      content: '""',
+    },
+  });
 
   return (
     <div className={s.container}>
@@ -113,40 +141,88 @@ export default function MortgageCalculator() {
         <div className={s.grid}>
           <div className={s.gridLeft}>
             <div>
-              <FormLabel id="purchasePrice">Purchase Price</FormLabel>
-              <div>${purchasePrice}K</div>
+              <FormLabel
+                id="purchasePrice"
+                sx={{
+                  color: "var(--color-secondary)",
+                  fontSize: "0.7rem",
+                }}
+              >
+                Purchase Price
+              </FormLabel>
+              <div className={s.sliderValue}>
+                <span className={s.sliderValueCurrency}>$</span>
+                <span className={s.sliderValueNumber}>
+                  {purchasePrice.toLocaleString("en-US")}
+                </span>
+              </div>
               <Slider
                 aria-labelledby="purchasePrice"
                 defaultValue={purchasePrice}
                 getAriaValueText={() => `${purchasePrice}%`}
-                valueLabelDisplay="auto"
-                step={50}
-                min={50}
-                max={2500}
+                valueLabelDisplay="off"
+                step={50000}
+                min={50000}
+                max={2500000}
                 size="small"
                 marks={[
                   {
-                    value: 50,
+                    value: 50000,
                     label: "$50K",
                   },
                   {
-                    value: 2500,
+                    value: 2500000,
                     label: "$2.5M",
                   },
                 ]}
                 value={purchasePrice}
                 onChange={handlePurchasePriceChange}
+                sx={{
+                  "& .MuiSlider-thumb": {
+                    backgroundColor: "#fff",
+                    border: "1px solid currentColor",
+                  },
+                  "& .MuiSlider-track": {
+                    height: "3px",
+                  },
+                  "& .MuiSlider-rail": {
+                    height: "2px",
+                    backgroundColor: "#bfbfbf",
+                  },
+                  "& .MuiSlider-mark": {
+                    display: "none",
+                  },
+                  "& .MuiSlider-markLabel": {
+                    color: "var(--color-secondary)",
+                    fontSize: "0.7rem",
+                    top: "22px",
+                  },
+                  "& .MuiSlider-markLabel[data-index='0']": {
+                    transform: "translateX(0)",
+                  },
+                  "& .MuiSlider-markLabel[data-index='1']": {
+                    transform: "translateX(-100%)",
+                  },
+                }}
               />
             </div>
             <br />
             <div>
-              <FormLabel id="interestRate">Interest Rate</FormLabel>
-              <div>{interestRate}%</div>
+              <FormLabel
+                id="interestRate"
+                sx={{
+                  color: "var(--color-secondary)",
+                  fontSize: "0.7rem",
+                }}
+              >
+                Interest Rate
+              </FormLabel>
+              <div className={`${s.sliderValue} ${s.interestRateSliderValue}`}>{interestRate}%</div>
               <Slider
                 aria-labelledby="interestRate"
                 defaultValue={interestRate}
                 getAriaValueText={() => `${interestRate}%`}
-                valueLabelDisplay="auto"
+                valueLabelDisplay="off"
                 step={0.5}
                 min={0}
                 max={25}
@@ -163,11 +239,46 @@ export default function MortgageCalculator() {
                 ]}
                 value={interestRate}
                 onChange={handleInterestRateChange}
+                sx={{
+                  "& .MuiSlider-thumb": {
+                    backgroundColor: "#fff",
+                    border: "1px solid currentColor",
+                  },
+                  "& .MuiSlider-track": {
+                    height: "3px",
+                  },
+                  "& .MuiSlider-rail": {
+                    height: "2px",
+                    backgroundColor: "#bfbfbf",
+                  },
+                  "& .MuiSlider-mark": {
+                    display: "none",
+                  },
+                  "& .MuiSlider-markLabel": {
+                    color: "var(--color-secondary)",
+                    fontSize: "0.7rem",
+                    top: "22px",
+                  },
+                  "& .MuiSlider-markLabel[data-index='0']": {
+                    transform: "translateX(0)",
+                  },
+                  "& .MuiSlider-markLabel[data-index='1']": {
+                    transform: "translateX(-100%)",
+                  },
+                }}
               />
             </div>
             <br />
             <FormControl>
-              <FormLabel id="amortizationPeriod">Period</FormLabel>
+              <FormLabel
+                id="amortizationPeriod"
+                sx={{
+                  color: "var(--color-secondary)",
+                  fontSize: "0.7rem",
+                }}
+              >
+                Period
+              </FormLabel>
               <RadioGroup
                 aria-labelledby="amortizationPeriod"
                 name="amortizationPeriod"
@@ -176,18 +287,24 @@ export default function MortgageCalculator() {
               >
                 <FormControlLabel
                   value="20"
-                  control={<Radio />}
-                  label="20 years"
+                  control={
+                    <Radio icon={<BpIcon />} checkedIcon={<BpCheckedIcon />} />
+                  }
+                  label="20 Years"
                 />
                 <FormControlLabel
                   value="25"
-                  control={<Radio />}
-                  label="25 years"
+                  control={
+                    <Radio icon={<BpIcon />} checkedIcon={<BpCheckedIcon />} />
+                  }
+                  label="25 Years"
                 />
                 <FormControlLabel
                   value="30"
-                  control={<Radio />}
-                  label="30 years"
+                  control={
+                    <Radio icon={<BpIcon />} checkedIcon={<BpCheckedIcon />} />
+                  }
+                  label="30 Years"
                 />
               </RadioGroup>
             </FormControl>

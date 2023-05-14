@@ -14,10 +14,10 @@ export default function Layout(props: LayoutProps) {
           <Image
             src="/p8Wordmark_sm.svg"
             alt="Produce8 Logo"
-            width={100}
-            height={20}
+            width={125}
+            height={25}
           />
-          <MenuIcon />
+          <MenuIcon fontSize="large" />
         </header>
       </div>
       {props.children}
